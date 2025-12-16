@@ -1,7 +1,12 @@
 [project]
-name = "golden-goose"
+name = "nostr-bot-python"
 version = "0.1.0"
-description = "Add your description here"
+description = "Nostr bot in Python"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+requires-python = ">=3.11"
+dependencies = [
+    "coincurve>=21.0.0", # cryptography
+    "httpx-ws>=0.7.2", # websockets
+    "openai>=1.106.1", # ai
+    "python-dotenv>=1.2.1",
+]

@@ -5,9 +5,6 @@ import shlex
 from crypto import encode_npub, init_identity
 from nostr import stream_nostr_messages, reply_to_message
 from ai import generate_ai_response, PROMPT
-from dotenv import load_dotenv
-
-load_dotenv()
 
 relays = [
     "wss://relay.damus.io",
@@ -35,9 +32,9 @@ def activation_condition(message: dict) -> bool:
 async def run_agent(task: str) -> str:
     cmd = (
         f"{AGENT_CLI} {shlex.quote(task)}"
-        "Do not do any changes to the underlying system."
-        "You can interact with github using the gh cli."
-        "Make sure to publish what i want on github and give me the link if applicable."
+        # "Do not do any changes to the underlying system."
+        # "You can interact with github using the gh cli."
+        # "Make sure to publish what i want on github and give me the link if applicable."
     )
     print(f"Running agent command: {cmd}")
 
@@ -75,10 +72,17 @@ async def main():
             agent_result = await run_agent(content)
 
             messages = [
-                {"role": "system", "content": PROMPT},
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an assistant. Summarize what the agent did based on the result below. "
+                        "Give a short answer for the user derived from the agent's output. "
+                        "Include relevant links and formulate it as an answer to the user's request."
+                    ),
+                },
                 {
                     "role": "user",
-                    "content": f"User Request: {content}\n\nAgent Execution Result:\n{agent_result}\n\nPlease formulate a response to the user based on this result.",
+                    "content": f"Agent Execution Result:\n{agent_result}",
                 },
             ]
 

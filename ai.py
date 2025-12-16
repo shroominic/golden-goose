@@ -1,6 +1,9 @@
 from typing import Any
 import os
 from openai import AsyncOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 TOKEN = os.getenv("TOKEN", "cashuBpGFkYGF0g...")
 BASE_URL = os.getenv("BASE_URL", "https://api.routstr.com/v1")

@@ -33,7 +33,12 @@ def activation_condition(message: dict) -> bool:
 
 
 async def run_agent(task: str) -> str:
-    cmd = f"{AGENT_CLI} {shlex.quote(task)}"
+    cmd = (
+        f"{AGENT_CLI} {shlex.quote(task)}"
+        "Do not do any changes to the underlying system."
+        "You can interact with github using the gh cli."
+        "Make sure to publish what i want on github and give me the link if applicable."
+    )
     print(f"Running agent command: {cmd}")
 
     proc = await asyncio.create_subprocess_shell(
@@ -46,6 +51,8 @@ async def run_agent(task: str) -> str:
         output += f"Output:\n{stdout.decode()}\n"
     if stderr:
         output += f"Errors:\n{stderr.decode()}\n"
+
+    print(f"Agent result: {output}")
 
     return output.strip()
 

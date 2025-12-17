@@ -9,4 +9,5 @@ dependencies = [
     "httpx-ws>=0.7.2", # websockets
     "openai>=1.106.1", # ai
     "python-dotenv>=1.2.1",
+    "sqlmodel>=0.0.27",
 ]
